@@ -26,3 +26,5 @@ class Utils:
     def add_transform(self, type_list: List(str), **args) -> bool:
         pass
 
+    def get_data_linked_list(self):
+        return self._data_linked_list
