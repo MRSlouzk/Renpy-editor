@@ -32,7 +32,7 @@ class Window(QMainWindow, Ui_MainWindow):
         dialogMsg.infoMsg(self, "Github仓库", "https://github.com/MRSlouzk/Renpy-editor")
 
     def showAuthor(self):
-        dialogMsg.infoMsg(self, "制作信息", "MRSlouzk(Github)\n爱喝矿泉水\nHzzr")
+        dialogMsg.infoMsg(self, "制作信息", "MRSlouzk(Github)\n爱喝矿泉水\nHzrr")
 
 app = QApplication(sys.argv)
 window = Window()

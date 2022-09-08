@@ -2,4 +2,4 @@
 
 版本：V0.0.1
 
-开发环境：PyQt6，Python 3.10
+开发环境：PyQt6，Python 3.8
