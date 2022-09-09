@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>735</width>
+    <height>465</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>RenpyEditor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="labelChoiceMode">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>160</y>
+      <width>48</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择模式</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxChoiceMode">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>160</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="currentText">
+     <string>添加台词</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <item>
+     <property name="text">
+      <string>添加台词</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加视频</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加选择界面</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>创建分支</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加人物</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加立绘</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加动画</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>游戏设置</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowserScriptAnazly">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>10</y>
+      <width>491</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>TODO:脚本解析读取</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonEnter">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>220</y>
+      <width>131</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>确定</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>735</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="file_menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSettings"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="edit_menu">
+    <property name="title">
+     <string>编辑</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="mode_menu">
+    <property name="title">
+     <string>模式</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="about_menu">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionAuthor"/>
+    <addaction name="actionAbout"/>
+    <addaction name="actionGithub"/>
+    <addaction name="actionHelp"/>
+   </widget>
+   <addaction name="file_menu"/>
+   <addaction name="edit_menu"/>
+   <addaction name="mode_menu"/>
+   <addaction name="about_menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>打开路径</string>
+   </property>
+   <property name="statusTip">
+    <string>打开文件目录</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>保存</string>
+   </property>
+   <property name="statusTip">
+    <string>存储文件</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="statusTip">
+    <string>退出程序</string>
+   </property>
+  </action>
+  <action name="actionAuthor">
+   <property name="text">
+    <string>制作信息</string>
+   </property>
+   <property name="statusTip">
+    <string>作者</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>关于</string>
+   </property>
+   <property name="statusTip">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="actionGithub">
+   <property name="text">
+    <string>Github仓库</string>
+   </property>
+   <property name="statusTip">
+    <string>Github链接</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>帮助</string>
+   </property>
+   <property name="statusTip">
+    <string>帮助</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>设置</string>
+   </property>
+   <property name="statusTip">
+    <string>打开设置界面</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

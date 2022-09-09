@@ -12,5 +12,5 @@ class dialogMsg(QDialog):
         QMessageBox.information(self, title, msg)
 
     @staticmethod
-    def infoWarn(self, title: str, msg):
+    def warnMsg(self, title: str, msg):
         QMessageBox.warning(self, title, msg)
