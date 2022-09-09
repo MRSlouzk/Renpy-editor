@@ -23,7 +23,7 @@ class Utils:
                             font_style_path: str, name_tag: str = "default") -> bool:
         pass
 
-    def add_transform(self, type_list: List(str), **args) -> bool:
+    def add_transform(self, type_list: List[str], **args) -> bool:
         pass
 
     def get_data_linked_list(self):
