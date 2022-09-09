@@ -5,10 +5,11 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenu, QFile
 from PyQt6.QtGui import QAction, QDesktopServices, QIcon, QFont
 from PyQt6.QtCore import QUrl
 
-import sys
+import sys, os
 
 from mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
+from DialogEdit import Ui_Form
 
 class WindowApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -27,11 +28,26 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         self.actionAbout.triggered.connect(self.showAbout)    #显示关于
         self.actionHelp.triggered.connect(self.showHelp)      #显示帮助
 
-        self.actionOpen.triggered.connect(self.showFileDialog)
+        self.actionOpen.triggered.connect(self.showFileDialog)#选择文件夹对话框
+
+        self.pushButtonEnter.clicked.connect(self.showNewWindow)
 
     def showFileDialog(self):
         fp_name = QFileDialog.getExistingDirectoryUrl(self, "选择工作区文件夹", QUrl("./"))
-        self.path = fp_name.path().lstrip('/') #工作区文件夹路径,类型为str
+        if(not fp_name.isEmpty()): #防止用户直接关闭窗口
+            self.path = fp_name.path().lstrip('/') #工作区文件夹路径,类型为str
+            if(not os.path.exists(self.path + '/rpy/script.rpy')):
+                dialogMsg.warnMsg(self, "不存在renpy脚本文件!", "请确认你选择的目录下存在rpy文件夹,其中包含script.rpy文件\n"
+                                                         "如果没有,请尝试重新创建工程!")
+                self.path = ''
+
+    def showNewWindow(self):
+        if(self.comboBoxChoiceMode.currentText()=="添加台词"):
+            self.window1 = DialogEditWindow()
+            self.window1.show()
+        else:
+            pass
+        # self.window1.close()
 
     def showAbout(self):
         dialogMsg.infoMsg(self, "关于", "Renpy脚本编辑器UI版\n版本v0.0.1")
@@ -50,6 +66,12 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         #TODO 软件帮助链接,暂用仓库链接替代
         QDesktopServices.openUrl(QUrl("https://github.com/MRSlouzk/Renpy-editor"))
 
-app = QApplication(sys.argv)
-window = WindowApp()
-sys.exit(app.exec())
+class DialogEditWindow(QMainWindow, Ui_Form):
+    def __init__(self, parent=None):
+        super(DialogEditWindow, self).__init__(parent)
+        self.setupUi(self)
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = WindowApp()
+    sys.exit(app.exec())

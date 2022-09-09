@@ -13,7 +13,106 @@
   <property name="windowTitle">
    <string>RenpyEditor</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="labelChoiceMode">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>160</y>
+      <width>48</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>选择模式</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxChoiceMode">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>160</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="currentText">
+     <string>添加台词</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="placeholderText">
+     <string/>
+    </property>
+    <item>
+     <property name="text">
+      <string>添加台词</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加视频</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加选择界面</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>创建分支</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加人物</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加立绘</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加动画</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>游戏设置</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowserScriptAnazly">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>10</y>
+      <width>491</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>TODO:脚本解析读取</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonEnter">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>220</y>
+      <width>131</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>确定</string>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -29,6 +128,7 @@
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionSettings"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="edit_menu">
@@ -110,6 +210,14 @@
    </property>
    <property name="statusTip">
     <string>帮助</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>设置</string>
+   </property>
+   <property name="statusTip">
+    <string>打开设置界面</string>
    </property>
   </action>
  </widget>
