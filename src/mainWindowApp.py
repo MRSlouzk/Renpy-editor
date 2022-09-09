@@ -10,6 +10,7 @@ import sys, os
 from mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
 from DialogEdit import Ui_Form
+from rpyFileOperation import RpyFileOperation
 
 class WindowApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -40,16 +41,32 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 dialogMsg.warnMsg(self, "不存在renpy脚本文件!", "请确认你选择的目录下存在rpy文件夹,其中包含script.rpy文件\n"
                                                          "如果没有,请尝试重新创建工程!")
                 self.path = ''
+            else:
+                self.fileOperate = RpyFileOperation(self.path)
 
-    def showNewWindow(self):
+    def showNewWindow(self): #跳转窗口选项
         if(self.comboBoxChoiceMode.currentText()=="添加台词"):
             self.window1 = DialogEditWindow()
             self.window1.show()
 
             self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
+            self.window1.btnDialogEditDefine.clicked.connect(self.writeDialog)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
+
+    def writeDialog(self):
+        char = self.window1.comboBoxCharacter.currentText()
+        dial = self.window1.DialogInput.toPlainText()
+        if(dial == ''):
+            dialogMsg.warnMsg(self, "错误!", "台词为空!")
+            return #TODO 子窗口存在时,无法操作主窗口,防止多窗口导致文件读写出错
+        try:
+            self.fileOperate.writeDialog(char, dial)
+        except AttributeError as e:
+            print(e)
+            dialogMsg.warnMsg(self, "错误!", "未选择工作区!")
+        self.window1.exitWin()
 
     def showAbout(self):
         dialogMsg.infoMsg(self, "关于", "Renpy脚本编辑器UI版\n版本v0.0.1")
