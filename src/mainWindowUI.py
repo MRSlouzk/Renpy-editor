@@ -70,7 +70,7 @@ class Ui_MainWindow(object):
         self.edit_menu.setTitle(_translate("MainWindow", "编辑"))
         self.mode_menu.setTitle(_translate("MainWindow", "模式"))
         self.about_menu.setTitle(_translate("MainWindow", "关于"))
-        self.actionOpen.setText(_translate("MainWindow", "打开"))
+        self.actionOpen.setText(_translate("MainWindow", "打开路径"))
         self.actionSave.setText(_translate("MainWindow", "保存"))
         self.actionExit.setText(_translate("MainWindow", "退出"))
         self.actionAuthor.setText(_translate("MainWindow", "制作信息"))
