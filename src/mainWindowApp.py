@@ -45,8 +45,10 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         if(self.comboBoxChoiceMode.currentText()=="添加台词"):
             self.window1 = DialogEditWindow()
             self.window1.show()
+
+            self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
         else:
-            pass
+            dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
 
     def showAbout(self):
@@ -70,6 +72,9 @@ class DialogEditWindow(QMainWindow, Ui_Form):
     def __init__(self, parent=None):
         super(DialogEditWindow, self).__init__(parent)
         self.setupUi(self)
+
+    def exitWin(self):
+        self.close()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
