@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentText">
-     <string>添加台词</string>
+     <string>台词编辑</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -47,7 +47,7 @@
     </property>
     <item>
      <property name="text">
-      <string>添加台词</string>
+      <string>台词编辑</string>
      </property>
     </item>
     <item>
@@ -67,7 +67,7 @@
     </item>
     <item>
      <property name="text">
-      <string>添加人物</string>
+      <string>人物编辑</string>
      </property>
     </item>
     <item>

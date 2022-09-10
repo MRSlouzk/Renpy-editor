@@ -42,15 +42,17 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                                                          "如果没有,请尝试重新创建工程!")
                 self.path = ''
             else:
-                self.fileOperate = RpyFileOperation(self.path)
+                self.fileOperate = RpyFileOperation(self.path) #存放用户工作区路径
 
     def showNewWindow(self): #跳转窗口选项
-        if(self.comboBoxChoiceMode.currentText()=="添加台词"):
+        if(self.comboBoxChoiceMode.currentText()=="台词编辑"):
             self.window1 = DialogEditWindow()
             self.window1.show()
 
             self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
             self.window1.btnDialogEditDefine.clicked.connect(self.writeDialog)
+        elif(self.comboBoxChoiceMode.currentText()=="人物编辑"):
+            pass
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
@@ -60,7 +62,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         dial = self.window1.DialogInput.toPlainText()
         if(dial == ''):
             dialogMsg.warnMsg(self, "错误!", "台词为空!")
-            return #TODO 子窗口存在时,无法操作主窗口,防止多窗口导致文件读写出错
+            return
         try:
             self.fileOperate.writeDialog(char, dial)
         except AttributeError as e:
