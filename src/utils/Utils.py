@@ -1,36 +1,17 @@
 import xml.etree.cElementTree as ET
 from xml.etree.cElementTree import Element
 from typing import List, Dict, Union
+
 from src.utils.CustomException import InvalidPosition, PositionOutOfIndexError
 
 
-def get_pos(root, pos):
-    global pos_dict
-    pos_dict = {
-            "header": 0,
-            "footer": -1 if len(root[1].getchildren()) > 0 else 0,
-        }
-
-    return pos_dict[pos]
 
 class Utils:
 
     def __init__(self, root: Element):
         self.__root: Element = root
         self.__cur: Element = self.__root[1]
-        self.__pos: int = 0
-
-    def __set_cur(self, pos: Union[str, int] = "footer"):
-        try:
-            self.__pos = get_pos(self.__root, pos) if type(pos) is str else pos
-        except KeyError:
-            raise InvalidPosition(f"\'{pos}\' is not a valid position;" \
-                                  f"valid pos: {','.join(i for i in pos_dict.keys())}")
-        try:
-            self.__cur: Element = self.__root[1][pos]
-        except IndexError:
-            raise PositionOutOfIndexError(f"child index '{self.pos}' out of range;" \
-                                          f"(0-{len(self.__root[1].getchildren())})")
+        self.__pos: List[int] = [0]
 
     def __set_tag(self, elem: Element, tag_dict: Dict[str, str]):
         for key in tag_dict.keys():
@@ -50,22 +31,24 @@ class Utils:
             elem.text = text
         return True
 
-    def reset_cur(self):
-        '''
-        将游标返回到body层级
-        '''
-        self.__cur = self.__root[1]
-
+    # 操作类接口
     def set_cur(self, name: str) -> bool:
         '''
         将光标设置到指定name标签的层级
         '''
         for i in range(len(child_list := self.__root[1].getchildren())):
             if child_list[i].attrib["name"] == name:
-                self.__set_cur(i)
+                try:
+                    self.__cur: Element = self.__root[1][i]
+                except IndexError:
+                    raise PositionOutOfIndexError(f"child index '{i}' out of range;" \
+                                          f"(0-{len(self.__cur.getchildren())})")
                 return True
         raise Exception(f"'{name}' is not existing!")
-        
+    
+    def remove_element(self, pos) -> bool:
+        return False
+
     def show(self):
         '''
         在控制台输出当前xml内容(调试用)
@@ -74,24 +57,16 @@ class Utils:
 
     def write_xml(self, out_path: str):
         xml = ET.ElementTree(self.__root)
-        xml.write(out_path)
+        xml.write(out_path, encoding="utf8", xml_declaration=True)
 
-    def add_dialogue(self, character_name: str, dialogue: str) -> bool:
-        '''
-        添加对话
-        '''
+    def create_image(self, image_name: str, image_path: str) -> bool:
+        self.__cur = self.__root[0][2]
         tag_dict = {
-            "character_name": character_name
+            "image_name": image_name,
+            "image_path": image_path
         }
-        text = f'{self.__get_character_tag(character_name)} "{dialogue}"'
-        return self.__generate_elem(elem_name="dialogue", tag_dict=tag_dict, text=text)
-
-    def add_video(self, video_path: str) -> bool:
-        text = f"$ renpy.movie_cutscene('{video_path}')"
-        return self.__generate_elem("video", text=text)
-
-    def add_choice(self, choice_params_dict: Dict[str, str]) -> bool:
-        return True
+        text = f'image {image_name} = "{image_path}"'
+        return self.__generate_elem(elem_name="image", tag_dict=tag_dict, text=text)
 
     def create_label(self, label_tag: str, label_name: str) -> bool:
         '''
@@ -102,7 +77,7 @@ class Utils:
         '''
         tag_dict = {
             "name": label_name,
-            "tag": label_tag
+            "tag": label_tag,
         }
         return self.__generate_elem(elem_name="label", tag_dict=tag_dict)
 
@@ -127,6 +102,40 @@ class Utils:
         text = f'define {character_tag} = ' \
                f'Character("{character_name}"{params_text})'
         return self.__generate_elem(elem_name="character", tag_dict=tag_dict, text=text)
+    
+    def add_dialogue(self, character_name: str, dialogue: str) -> bool:
+        '''
+        添加对话
+        '''
+        tag_dict = {
+            "character_name": character_name
+        }
+        text = f'{self.__get_character_tag(character_name)} "{dialogue}"'
+        return self.__generate_elem(elem_name="dialogue", tag_dict=tag_dict, text=text)
+
+    def add_image(self, image_name: str) -> bool:
+        '''
+        添加图片, 如果未提前定义会返回False
+        '''
+        temp_cur = self.__root[0][1]
+        for child in temp_cur.getchildren():
+            if child.attrib["image_name"] == image_name:
+                tag_dict = {
+                    "image_name": image_name
+                }
+                text = f"show {image_name}"
+                return self.__generate_elem(elem_name="image", tag_dict=tag_dict, text=text)
+        return False
+
+    def add_video(self, video_path: str) -> bool:
+        text = f"$ renpy.movie_cutscene('{video_path}')"
+        return self.__generate_elem("video", text=text)
+
+    def add_choice(self, choice_params_dict: Dict[str, str]) -> bool:
+        return True
 
     def add_transform(self, type_list: List[str], **args) -> bool:
         return True
+
+    # 预览类接口
+    

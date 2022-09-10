@@ -1,1 +1,24 @@
-<root><define><characters><character character_name="&#30002;" character_tag="a" painting_tag="jia">define a = Character("&#30002;",who_font=Gunshihei.ttf,who_color=#055584,who_outlines=[(absolute(1), "#ffffff", absolute(0), absolute(0))])</character><character character_name="&#20057;" character_tag="b" painting_tag="yi">define b = Character("&#20057;",who_font=Gunshihei.ttf,who_color=#055584,who_outlines=[(absolute(1), "#ffffff", absolute(0), absolute(0))])</character></characters><paintings /><images /></define><body><label name="1" tag="start"><dialogue character_name="&#30002;">a "hello world!"</dialogue><dialogue character_name="&#20057;">b "hello world!"</dialogue><dialogue character_name="&#30002;">a "hello world!"</dialogue><video>$ renpy.movie_cutscene('video/a.ovg')</video><video>$ renpy.movie_cutscene('video/a.ovg')</video></label><label name="2" tag="start2"><video>$ renpy.movie_cutscene('video/b.ovg')</video></label><label name="3" tag="start3" /></body></root>
+<?xml version='1.0' encoding='utf8'?>
+<root>
+    <define>
+        <characters>
+            <character character_name="甲" character_tag="a" painting_tag="jia">define a = Character("甲",who_font=Gunshihei.ttf,who_color=#055584,who_outlines=[(absolute(1), "#ffffff", absolute(0), absolute(0))])</character>
+            <character character_name="乙" character_tag="b" painting_tag="yi">define b = Character("乙",who_font=Gunshihei.ttf,who_color=#055584,who_outlines=[(absolute(1), "#ffffff", absolute(0), absolute(0))])</character>
+        </characters>
+        <paintings />
+        <images />
+    </define>
+    <body>
+        <label name="s1" tag="start">
+            <dialogue character_name="甲">a "hello world!"</dialogue>
+            <dialogue character_name="乙">b "hello world!"</dialogue>
+            <dialogue character_name="甲">a "hello world!"</dialogue>
+            <video>$ renpy.movie_cutscene('video/a.ovg')</video>
+            <video>$ renpy.movie_cutscene('video/a.ovg')</video>
+        </label>
+        <label name="s2" tag="start2">
+            <video>$ renpy.movie_cutscene('video/b.ovg')</video>
+        <dialogue character_name="乙">b "hello world!"</dialogue></label>
+        <label name="s3" tag="start3"><dialogue character_name="乙">b "hello world!"</dialogue></label>
+    </body>
+</root>
