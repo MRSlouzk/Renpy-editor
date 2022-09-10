@@ -1,7 +1,7 @@
 import xml.etree.cElementTree as ET
 from xml.etree.cElementTree import Element
 from typing import List, Dict, Union
-from utils.CustomException import InvalidPosition, PositionOutOfIndexError
+from src.utils.CustomException import InvalidPosition, PositionOutOfIndexError
 
 
 def get_pos(root, pos):
