@@ -18,3 +18,9 @@ label start2:
 
 	$ renpy.movie_cutscene('video/b.ovg')
 
+	b "hello world!"
+
+label start3:
+
+	b "hello world!"
+
