@@ -1,15 +1,15 @@
 """
     主程序
 """
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QMenu, QFileDialog
-from PyQt6.QtGui import QAction, QDesktopServices, QIcon, QFont
+from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
+from PyQt6.QtGui import QDesktopServices
 from PyQt6.QtCore import QUrl
 
 import sys, os
 
 from mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from DialogEdit import Ui_Form
+from uiDefine import DialogEditWindow, CharaEditWindow
 from rpyFileOperation import RpyFileOperation
 
 class WindowApp(QMainWindow, Ui_MainWindow):
@@ -52,7 +52,10 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
             self.window1.btnDialogEditDefine.clicked.connect(self.writeDialog)
         elif(self.comboBoxChoiceMode.currentText()=="人物编辑"):
-            pass
+            self.window2 = CharaEditWindow()
+            self.window2.show()
+
+            self.window2.btnDialogEditExit.clicked.connect(self.window2.exitWin)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
@@ -86,14 +89,6 @@ class WindowApp(QMainWindow, Ui_MainWindow):
     def showHelp():
         #TODO 软件帮助链接,暂用仓库链接替代
         QDesktopServices.openUrl(QUrl("https://github.com/MRSlouzk/Renpy-editor"))
-
-class DialogEditWindow(QMainWindow, Ui_Form):
-    def __init__(self, parent=None):
-        super(DialogEditWindow, self).__init__(parent)
-        self.setupUi(self)
-
-    def exitWin(self):
-        self.close()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

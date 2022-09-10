@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'DialogEdit.ui'
+# Form implementation generated from reading ui file 'dialogEdit.ui'
 #
 # Created by: PyQt6 UI code generator 6.1.0
 #
@@ -9,12 +9,12 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
-        Form.resize(285, 344)
-        self.layoutWidget = QtWidgets.QWidget(Form)
+class Ui_DialogEdit(object):
+    def setupUi(self, DialogEdit):
+        DialogEdit.setObjectName("DialogEdit")
+        DialogEdit.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
+        DialogEdit.resize(285, 344)
+        self.layoutWidget = QtWidgets.QWidget(DialogEdit)
         self.layoutWidget.setGeometry(QtCore.QRect(9, 10, 260, 303))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget)
@@ -52,24 +52,24 @@ class Ui_Form(object):
         self.horizontalLayout.addWidget(self.btnDialogEditExit)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(DialogEdit)
+        QtCore.QMetaObject.connectSlotsByName(DialogEdit)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, DialogEdit):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "台词编辑"))
-        self.labelDialogInput.setText(_translate("Form", "请输入台词"))
-        self.labelChar01.setText(_translate("Form", "人物"))
-        self.comboBoxCharacter.setItemText(0, _translate("Form", "测试"))
-        self.btnDialogEditDefine.setText(_translate("Form", "确定"))
-        self.btnDialogEditExit.setText(_translate("Form", "取消"))
+        DialogEdit.setWindowTitle(_translate("DialogEdit", "台词编辑"))
+        self.labelDialogInput.setText(_translate("DialogEdit", "请输入台词"))
+        self.labelChar01.setText(_translate("DialogEdit", "人物"))
+        self.comboBoxCharacter.setItemText(0, _translate("DialogEdit", "测试"))
+        self.btnDialogEditDefine.setText(_translate("DialogEdit", "确定"))
+        self.btnDialogEditExit.setText(_translate("DialogEdit", "取消"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
+    DialogEdit = QtWidgets.QWidget()
+    ui = Ui_DialogEdit()
+    ui.setupUi(DialogEdit)
+    DialogEdit.show()
     sys.exit(app.exec())
