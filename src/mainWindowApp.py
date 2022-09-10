@@ -55,33 +55,55 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window2 = CharaEditWindow()
             self.window2.show()
 
-            self.window2.btnDialogEditExit.clicked.connect(self.window2.exitWin)
+            self.window2.btnDialogEditExit.clicked.connect(self.window2.exitWin) #取消按钮
 
-            # self.window2.btnDefineChara.clicked.connect()
-            self.window2.btnDelChara.clicked.connect(self.delChar)
-            self.window2.btnAddChara.clicked.connect(self.addChar)
+            self.window2.listWidget.itemSelectionChanged.connect(self.charaInfoUpdate)
+
+            self.window2.btnDefineChara.clicked.connect(self.changeChar)
+            self.window2.btnDelChara.clicked.connect(self.delChar) #删除
+            self.window2.btnAddChara.clicked.connect(self.addChar) #添加
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
 
+    def charaInfoUpdate(self):
+        try:
+            self.selectedRow = self.window2.listWidget.currentItem().text()
+            #TODO 通过显示名读取标签以及人物立绘前缀
+            self.charaTag = 'testContent'
+            self.charaPre = 'testContent'
+            lst = [self.charaTag, self.selectedRow, self.charaPre]
+            self.window2.setCharaInfo(lst)
+        except AttributeError as e:
+            dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
+
+    def changeChar(self): #修改人物
+        if (self.window2.isEmptyInfo()):
+            charaTag = self.window2.charaTag.text()  # 人物标签(renpy人物变量)
+            charaName = self.window2.charaName.text()  # 人物显示名
+            try:
+                if(charaName != self.window2.listWidget.currentItem().text()):
+                    raise Exception("参数指向错误!")
+            except AttributeError as e:
+                dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
+                return
+            charaPrefix = self.window2.charaPrefix.text()  # 人物立绘前缀,格式如tohka_
+            #TODO 人物标签,显示名,立绘前缀冲突判定
+            #TODO 修改标签以及人物立绘前缀(文件操作)
+            dialogMsg.infoMsg(self, "提示", "修改成功!")
+        return
+
+
     def addChar(self): #写入人物
-        charaTag = self.window2.charaTag.text()        #人物标签(renpy人物变量)
-        charaName = self.window2.charaName.text()      #人物显示名
-        charaPrefix = self.window2.charaPrefix.text()  #人物立绘前缀,格式如tohka_
-        if(not charaTag):
-            dialogMsg.warnMsg(self, "错误!", "未设置人物标签!")
-        elif(not charaName):
-            dialogMsg.warnMsg(self, "错误!", "未设置人物名!")
-        elif(not charaPrefix):
-            dialogMsg.warnMsg(self, "错误!", "未设置人物立绘前缀!")
-        else:
+        if(self.window2.isEmptyInfo()):
+            charaTag = self.window2.charaTag.text()        #人物标签(renpy人物变量)
+            charaName = self.window2.charaName.text()      #人物显示名
+            charaPrefix = self.window2.charaPrefix.text()  #人物立绘前缀,格式如tohka_
             charaPrefix += '_'
-            #TODO 新添加的与已存在的内容冲突报错
+            #TODO 人物标签,显示名,立绘前缀冲突判定(2)
             #TODO 人物添加文件读写(此处为写入文件)
             self.window2.listWidget.addItem(charaName)
-            self.window2.charaTag.setText("")
-            self.window2.charaName.setText("")
-            self.window2.charaPrefix.setText("")
+            self.window2.clearInput()
         return
 
     def delChar(self):
