@@ -9,7 +9,7 @@ import sys, os
 
 from mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from uiDefine import DialogEditWindow, CharaEditWindow
+from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit
 from rpyFileOperation import RpyFileOperation
 
 class WindowApp(QMainWindow, Ui_MainWindow):
@@ -45,8 +45,8 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 self.fileOperate = RpyFileOperation(self.path) #存放用户工作区路径
 
     def showNewWindow(self): #跳转窗口选项
-        if(self.comboBoxChoiceMode.currentText()=="台词编辑"):
-            self.window1 = DialogEditWindow()
+        if(self.comboBoxChoiceMode.currentText()=="添加台词"):
+            self.window1 = DialogAddWindow()
             self.window1.show()
 
             self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
@@ -62,6 +62,16 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window2.btnDefineChara.clicked.connect(self.changeChar)
             self.window2.btnDelChara.clicked.connect(self.delChar) #删除
             self.window2.btnAddChara.clicked.connect(self.addChar) #添加
+        elif(self.comboBoxChoiceMode.currentText()=="台词编辑"):
+            try:
+                currentDialog = self.listWidget.currentItem().text()
+            except AttributeError:
+                dialogMsg.warnMsg(self, "警告!", "未选择任何台词!")
+                return
+            self.window3 = DialogEdit()
+            self.window3.show()
+
+            self.window3.DialogEdit.setPlainText(currentDialog) #TODO 9.11开
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
         # self.window1.close()
@@ -123,24 +133,15 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             return
         #TODO 此处具体功能待对接
 
-        # try:
-        #     self.fileOperate.writeDialog(char, dial)
-        # except AttributeError as e:
-        #     print(e)
-        #     dialogMsg.warnMsg(self, "错误!", "未选择工作区!")
-        # self.window1.exitWin()
-
     def showAbout(self):
         dialogMsg.infoMsg(self, "关于", "Renpy脚本编辑器UI版\n版本v0.0.1")
 
     @staticmethod
     def showGithub():
-        # dialogMsg.infoMsg(self, "Github仓库", "https://github.com/MRSlouzk/Renpy-editor")
-        # 直接使用InfoBox显示,无法复制,不方便
         QDesktopServices.openUrl(QUrl("https://github.com/MRSlouzk/Renpy-editor"))
 
     def showAuthor(self):
-        dialogMsg.infoMsg(self, "制作信息", "MRSlouzk(Github)\n爱喝矿泉水\nHzrr")
+        dialogMsg.infoMsg(self, "制作信息", "程序/UI:MRSlouzk(Github)\n程序:爱喝矿泉水\n程序:Hzrr(Github)")
 
     @staticmethod
     def showHelp():

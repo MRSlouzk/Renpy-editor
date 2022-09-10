@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogEdit</class>
- <widget class="QWidget" name="DialogEdit">
-  <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
-  </property>
+ <class>DialogEditNew</class>
+ <widget class="QWidget" name="DialogEditNew">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>285</width>
-    <height>344</height>
+    <width>300</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,68 +16,60 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>9</x>
+     <x>20</x>
      <y>10</y>
-     <width>260</width>
-     <height>303</height>
+     <width>258</width>
+     <height>299</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="labelDialogInput">
-        <property name="font">
-         <font>
-          <pointsize>11</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>请输入台词</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPlainTextEdit" name="DialogInput"/>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelChar01">
-        <property name="text">
-         <string>人物</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBoxCharacter">
-        <property name="tabletTracking">
-         <bool>false</bool>
-        </property>
-        <item>
-         <property name="text">
-          <string>测试</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>台词编辑</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="DialogEdit"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>人物</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBoxChara"/>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="btnDialogEditDefine">
+       <widget class="QPushButton" name="btnDefine">
         <property name="text">
          <string>确定</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnDialogEditExit">
+       <widget class="QPushButton" name="btnCancel">
         <property name="text">
          <string>取消</string>
         </property>

@@ -5,13 +5,14 @@ from PyQt6.QtWidgets import QMainWindow
 
 from typing import List
 
-from src.ui.dialogEdit import Ui_DialogEdit
-from src.ui.charaEdit import Ui_CharaEdit
+from src.ui.dialogAdd import Ui_dialogAdd
+from src.ui.charaAdd import Ui_CharaEdit
+from src.ui.dialogEdit import Ui_DialogEditNew
 from dialogMsg import dialogMsg
 
-class DialogEditWindow(QMainWindow, Ui_DialogEdit): #台词编辑窗口
+class DialogAddWindow(QMainWindow, Ui_dialogAdd): #台词编辑窗口
     def __init__(self, parent=None):
-        super(DialogEditWindow, self).__init__(parent)
+        super(DialogAddWindow, self).__init__(parent)
         self.setupUi(self)
 
     def exitWin(self):
@@ -55,3 +56,11 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
             self.charaPrefix.setText(lst[2])
         else:
             raise Exception("参数数量错误")
+
+class DialogEdit(QMainWindow, Ui_DialogEditNew):
+    def __init__(self, parent=None):
+        super(DialogEdit, self).__init__(parent)
+        self.setupUi(self)
+
+    def exitWin(self):
+        self.close()

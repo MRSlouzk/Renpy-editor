@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="currentText">
-     <string>台词编辑</string>
+     <string>添加台词</string>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -47,7 +47,27 @@
     </property>
     <item>
      <property name="text">
+      <string>添加台词</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>人物编辑</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>台词编辑</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加图片</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>添加立绘</string>
      </property>
     </item>
     <item>
@@ -67,16 +87,6 @@
     </item>
     <item>
      <property name="text">
-      <string>人物编辑</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>添加立绘</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>添加动画</string>
      </property>
     </item>
@@ -85,19 +95,6 @@
       <string>游戏设置</string>
      </property>
     </item>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowserScriptAnazly">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>10</y>
-      <width>491</width>
-      <height>411</height>
-     </rect>
-    </property>
-    <property name="placeholderText">
-     <string>TODO:脚本解析读取</string>
-    </property>
    </widget>
    <widget class="QPushButton" name="pushButtonEnter">
     <property name="geometry">
@@ -111,6 +108,21 @@
     <property name="text">
      <string>确定</string>
     </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>461</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>TODO:脚本内容解析</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
