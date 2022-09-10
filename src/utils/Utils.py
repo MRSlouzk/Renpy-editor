@@ -13,8 +13,9 @@ class Utils:
         try:
             self.pos = pos_dict[pos] if type(pos) is str else pos
         except KeyError:
-            raise InvalidPosition(f"\'{pos}\' is not a valid position;valid pos: {','.join(i for i in pos_dict.keys())}")
-        
+            raise InvalidPosition(f"\'{pos}\' is not a valid position;" \
+                                  f"valid pos: {','.join(i for i in pos_dict.keys())}")
+                                
         self.__xml_data_obj = xml_data_obj
 
     def add_dialogue(self, character_name: str, dialogue: str) -> bool:
