@@ -76,7 +76,7 @@ class Utils:
         tag_dict = {
             "character_name": character_name
         }
-        self.__set_tag()
+        self.__set_tag(tag_dict)
         dialogue_elem.text = f'{self.__get_character_tag(character_name)} "{dialogue}"'
 
     def add_video(self, video_path: str) -> bool:
