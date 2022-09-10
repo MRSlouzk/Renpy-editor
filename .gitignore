@@ -1,3 +1,4 @@
 =======
 python38env/
 .idea/
+__pycache__
