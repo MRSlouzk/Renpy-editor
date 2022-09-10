@@ -32,7 +32,7 @@ class Utils:
             raise PositionOutOfIndexError(f"child index '{self.pos}' out of range;" \
                                           f"(0-{len(self.__root[1].getchildren())})")
 
-    def __set_tag(self, elem, tag_dict: Dict[str, str]):
+    def __set_tag(self, elem: Element, tag_dict: Dict[str, str]):
         for key in tag_dict.keys():
             elem.set(key, tag_dict[key])
 
@@ -87,7 +87,7 @@ class Utils:
         return self.__generate_elem(elem_name="dialogue", tag_dict=tag_dict, text=text)
 
     def add_video(self, video_path: str) -> bool:
-        text = video_path
+        text = f"$ renpy.movie_cutscene('{video_path}')"
         return self.__generate_elem("video", text=text)
 
     def add_choice(self, choice_params_dict: Dict[str, str]) -> bool:
@@ -109,7 +109,7 @@ class Utils:
     def create_character(self, character_name: str, character_tag: str,
                             font_style: Dict[str, str], painting_tag: str) -> bool:
         '''
-        创建角色, 储存在config/characters中
+        创建角色, 储存在define/characters中
         :params character_name: 角色识别名
         :params character_tag: renpy中变量名
         :params painting_tag: 立绘前缀 
