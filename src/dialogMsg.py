@@ -14,3 +14,8 @@ class dialogMsg(QDialog):
     @staticmethod
     def warnMsg(self, title: str, msg):
         QMessageBox.warning(self, title, msg)
+
+    @staticmethod
+    def queryMsg(self, title: str, msg):
+        pass
+        #TODO 问询对话框

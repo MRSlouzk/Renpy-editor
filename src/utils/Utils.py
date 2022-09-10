@@ -1,7 +1,9 @@
 import xml.etree.cElementTree as ET
 from xml.etree.cElementTree import Element
 from typing import List, Dict, Union
-from utils.CustomException import PositionOutOfIndexError
+
+from src.utils.CustomException import InvalidPosition, PositionOutOfIndexError
+
 
 
 class Utils:
