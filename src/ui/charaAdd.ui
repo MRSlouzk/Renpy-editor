@@ -19,7 +19,7 @@
   <widget class="QPushButton" name="btnDialogEditExit">
    <property name="geometry">
     <rect>
-     <x>380</x>
+     <x>390</x>
      <y>360</y>
      <width>101</width>
      <height>24</height>
@@ -50,6 +50,9 @@
      <width>231</width>
      <height>301</height>
     </rect>
+   </property>
+   <property name="cursor" stdset="0">
+    <cursorShape>IBeamCursor</cursorShape>
    </property>
    <item>
     <property name="text">

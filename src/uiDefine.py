@@ -7,7 +7,7 @@ from typing import List
 
 from src.ui.dialogAdd import Ui_dialogAdd
 from src.ui.charaAdd import Ui_CharaEdit
-from src.dialogEdit import Ui_DialogEditNew
+from src.ui.dialogEdit import Ui_DialogEditNew
 from dialogMsg import dialogMsg
 
 class DialogAddWindow(QMainWindow, Ui_dialogAdd): #台词编辑窗口

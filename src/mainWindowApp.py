@@ -7,7 +7,7 @@ from PyQt6.QtCore import QUrl
 
 import sys, os
 
-from mainWindow import Ui_MainWindow
+from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
 from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit
 from rpyFileOperation import RpyFileOperation
@@ -71,10 +71,14 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window3 = DialogEdit()
             self.window3.show()
 
-            self.window3.DialogEdit.setPlainText(currentDialog) #TODO 9.11开
+            self.window3.DialogEdit.setPlainText(currentDialog)
+            self.window3.comboBoxChara.setCurrentText("test") #TODO 获取说此台词的人
+
+            self.window3.btnCancel.clicked.connect(self.window3.exitWin)
+            # self.window3.btnDelete.clicked.connect() #TODO 删除台词
+            # self.window3.btnDefine.clicked.connect() #TODO 确认键
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
-        # self.window1.close()
 
     def charaInfoUpdate(self):
         try:

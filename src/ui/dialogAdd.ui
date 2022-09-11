@@ -44,7 +44,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="DialogInput"/>
+       <widget class="QPlainTextEdit" name="DialogInput">
+        <property name="cursor" stdset="0">
+         <cursorShape>IBeamCursor</cursorShape>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="labelChar01">

@@ -30,6 +30,7 @@ class Ui_dialogAdd(object):
         self.labelDialogInput.setObjectName("labelDialogInput")
         self.verticalLayout.addWidget(self.labelDialogInput)
         self.DialogInput = QtWidgets.QPlainTextEdit(self.layoutWidget)
+        self.DialogInput.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.CursorShape.IBeamCursor))
         self.DialogInput.setObjectName("DialogInput")
         self.verticalLayout.addWidget(self.DialogInput)
         self.labelChar01 = QtWidgets.QLabel(self.layoutWidget)
