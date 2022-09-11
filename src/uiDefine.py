@@ -13,6 +13,7 @@ from src.ui.dialogAdd import Ui_dialogAdd
 from src.ui.charaAdd import Ui_CharaEdit
 from src.ui.dialogEdit import Ui_DialogEditNew
 from src.ui.picAdd import Ui_picAdd
+from src.ui.winSettings import Ui_winSettings
 from dialogMsg import dialogMsg
 
 class DialogAddWindow(QMainWindow, Ui_dialogAdd): #台词编辑窗口
@@ -88,7 +89,7 @@ class PicAdd(QMainWindow, Ui_picAdd):
             else:
                 self.picPathEdit.setText(path)
 
-    def showPic(self):
+    def showPic(self): #显示图片
         try:
             pixmap = QPixmap(self.picPathEdit.text())
         except FileNotFoundError:
@@ -96,3 +97,11 @@ class PicAdd(QMainWindow, Ui_picAdd):
             return
         self.labelPic.setPixmap(pixmap)
         self.labelPic.setScaledContents(True)
+
+class WinSetting(QMainWindow, Ui_winSettings):
+    def __init__(self, parent=None):
+        super(WinSetting, self).__init__(parent)
+        self.setupUi(self)
+
+    def exitWin(self):
+        self.close()

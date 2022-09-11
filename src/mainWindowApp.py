@@ -9,7 +9,7 @@ import sys, os
 
 from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicAdd
+from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicAdd, WinSetting
 from rpyFileOperation import RpyFileOperation
 
 class WindowApp(QMainWindow, Ui_MainWindow):
@@ -29,7 +29,8 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         self.actionAbout.triggered.connect(self.showAbout)    #显示关于
         self.actionHelp.triggered.connect(self.showHelp)      #显示帮助
 
-        self.actionOpen.triggered.connect(self.showFileDialog)#选择文件夹对话框
+        self.actionOpen.triggered.connect(self.showFileDialog) #选择文件夹对话框
+        # self.actionSettings.triggered.connect(self.showSettingWindow) #TODO 设置对话框
 
         self.pushButtonEnter.clicked.connect(self.showNewWindow)
 
@@ -43,6 +44,17 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 self.path = ''
             else:
                 self.fileOperate = RpyFileOperation(self.path) #存放用户工作区路径
+
+    def showSettingWindow(self): #设置界面
+        self.windowSet = WinSetting()
+        self.windowSet.show()
+
+        self.windowSet.btnOpenFileMana.clicked.connect()
+        self.windowSet.btnSettingSave.clicked.connect(self.settingSave)
+        self.windowSet.btnSettingExit.clicked.connect(self.windowSet.exitWin)
+
+    def settingSave(self): #确认保存
+        pass
 
     def showNewWindow(self): #跳转窗口选项
         choice = self.comboBoxChoiceMode.currentText()
