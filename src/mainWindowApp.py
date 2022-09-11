@@ -9,7 +9,7 @@ import sys, os
 
 from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit
+from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicAdd
 from rpyFileOperation import RpyFileOperation
 
 class WindowApp(QMainWindow, Ui_MainWindow):
@@ -45,13 +45,14 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 self.fileOperate = RpyFileOperation(self.path) #存放用户工作区路径
 
     def showNewWindow(self): #跳转窗口选项
-        if(self.comboBoxChoiceMode.currentText()=="添加台词"):
+        choice = self.comboBoxChoiceMode.currentText()
+        if(choice=="添加台词"):
             self.window1 = DialogAddWindow()
             self.window1.show()
 
             self.window1.btnDialogEditExit.clicked.connect(self.window1.exitWin)
             # self.window1.btnDialogEditDefine.clicked.connect(self.writeDialog) #TODO 暂时禁用,因为对接正在协调
-        elif(self.comboBoxChoiceMode.currentText()=="人物编辑"):
+        elif(choice=="人物编辑"):
             self.window2 = CharaEditWindow()
             self.window2.show()
 
@@ -62,7 +63,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window2.btnDefineChara.clicked.connect(self.changeChar)
             self.window2.btnDelChara.clicked.connect(self.delChar) #删除
             self.window2.btnAddChara.clicked.connect(self.addChar) #添加
-        elif(self.comboBoxChoiceMode.currentText()=="台词编辑"):
+        elif(choice=="台词编辑"):
             try:
                 currentDialog = self.listWidget.currentItem().text()
             except AttributeError:
@@ -77,6 +78,15 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window3.btnCancel.clicked.connect(self.window3.exitWin)
             # self.window3.btnDelete.clicked.connect() #TODO 删除台词
             # self.window3.btnDefine.clicked.connect() #TODO 确认键
+        elif(choice=="添加图片"):
+            self.window4 = PicAdd()
+            self.window4.show()
+
+            self.window4.btnOpenFileMana.clicked.connect(self.window4.chooseFile)
+
+            self.window4.btnReload.clicked.connect(self.window4.showPic)
+            # self.window4.btnDefine.clicked.connect() #TODO 确认键
+            self.window4.btnCancel.clicked.connect(self.window4.exitWin)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
 

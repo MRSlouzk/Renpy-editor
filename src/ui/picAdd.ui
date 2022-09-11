@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>390</width>
-    <height>305</height>
+    <width>446</width>
+    <height>352</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,8 +55,8 @@
   <widget class="QPushButton" name="btnCancel">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>270</y>
+     <x>330</x>
+     <y>320</y>
      <width>75</width>
      <height>22</height>
     </rect>
@@ -68,8 +68,8 @@
   <widget class="QPushButton" name="btnDefine">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>270</y>
+     <x>240</x>
+     <y>320</y>
      <width>75</width>
      <height>22</height>
     </rect>
@@ -78,21 +78,11 @@
     <string>确定</string>
    </property>
   </widget>
-  <widget class="QGraphicsView" name="graphicsView">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>60</y>
-     <width>351</width>
-     <height>191</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QDoubleSpinBox" name="doubleSpinBoxSize">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>270</y>
+     <x>70</x>
+     <y>320</y>
      <width>62</width>
      <height>22</height>
     </rect>
@@ -101,8 +91,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>270</y>
+     <x>10</x>
+     <y>320</y>
      <width>55</width>
      <height>22</height>
     </rect>
@@ -117,14 +107,27 @@
   <widget class="QPushButton" name="btnReload">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>270</y>
+     <x>150</x>
+     <y>320</y>
      <width>75</width>
      <height>22</height>
     </rect>
    </property>
    <property name="text">
     <string>加载</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelPic">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>60</y>
+     <width>384</width>
+     <height>216</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
