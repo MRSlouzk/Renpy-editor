@@ -6,7 +6,6 @@ from PyQt6.QtCore import QUrl
 from PyQt6.QtGui import QPixmap
 
 from typing import List
-import os
 import imghdr
 
 from src.ui.dialogAdd import Ui_dialogAdd

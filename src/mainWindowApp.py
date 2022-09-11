@@ -5,12 +5,14 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt6.QtGui import QDesktopServices
 from PyQt6.QtCore import QUrl
 
-import sys, os
+import sys, os, shutil
 
 from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
 from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicAdd, WinSetting
 from rpyFileOperation import RpyFileOperation
+
+from settings import Settings
 
 class WindowApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -97,10 +99,37 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window4.btnOpenFileMana.clicked.connect(self.window4.chooseFile)
 
             self.window4.btnReload.clicked.connect(self.window4.showPic)
-            # self.window4.btnDefine.clicked.connect() #TODO 确认键
+            self.window4.btnDefine.clicked.connect(self.definePic)
             self.window4.btnCancel.clicked.connect(self.window4.exitWin)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
+
+    def definePic(self): #确认键
+        try:
+            work_path = self.path
+        except AttributeError:
+            dialogMsg.warnMsg(self, "警告", "未设置工作区路径!")
+            return
+        if(not os.path.isdir(work_path)):
+            dialogMsg.warnMsg(self, "警告", "路径无效!")
+            return
+        path = self.window4.picPathEdit.text()
+        if(not os.path.isfile(path)):
+            dialogMsg.warnMsg(self, "警告", "文件不存在!")
+        else:
+            try:
+                name = os.path.split(path)[1]
+                if not os.path.exists(work_path+"/images"):
+                    os.makedirs(work_path+"/images")
+                shutil.copy(path, work_path+"/images/"+name)
+                #TODO 脚本文件更改(images.rpy+script.rpy)
+                self.window4.exitWin()
+            except FileExistsError:
+                dialogMsg.warnMsg(self, "警告", "文件已存在!")
+                return
+            except Exception as e:
+                print(e)
+                return
 
     def charaInfoUpdate(self):
         try:

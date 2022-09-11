@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>picAdd</class>
  <widget class="QWidget" name="picAdd">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,6 +17,9 @@
    <string>添加图片</string>
   </property>
   <widget class="QLineEdit" name="picPathEdit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>90</x>

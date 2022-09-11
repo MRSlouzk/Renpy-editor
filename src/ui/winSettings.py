@@ -12,6 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_winSettings(object):
     def setupUi(self, winSettings):
         winSettings.setObjectName("winSettings")
+        winSettings.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
         winSettings.resize(576, 360)
         self.btnSettingExit = QtWidgets.QPushButton(winSettings)
         self.btnSettingExit.setGeometry(QtCore.QRect(460, 320, 101, 24))

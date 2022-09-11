@@ -12,8 +12,10 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_picAdd(object):
     def setupUi(self, picAdd):
         picAdd.setObjectName("picAdd")
+        picAdd.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
         picAdd.resize(446, 352)
         self.picPathEdit = QtWidgets.QLineEdit(picAdd)
+        self.picPathEdit.setEnabled(False)
         self.picPathEdit.setGeometry(QtCore.QRect(90, 20, 231, 24))
         self.picPathEdit.setObjectName("picPathEdit")
         self.label = QtWidgets.QLabel(picAdd)
