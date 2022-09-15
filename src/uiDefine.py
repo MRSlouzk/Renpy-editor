@@ -1,9 +1,9 @@
 """
     UI定义文件
 """
-from PyQt6.QtWidgets import QMainWindow, QFileDialog
+from PyQt6.QtWidgets import QMainWindow, QFileDialog, QHeaderView, QAbstractItemView, QTableView
 from PyQt6.QtCore import QUrl
-from PyQt6.QtGui import QPixmap
+from PyQt6.QtGui import QPixmap, QStandardItemModel, QStandardItem
 
 from typing import List
 import imghdr
@@ -11,14 +11,16 @@ import imghdr
 from src.ui.dialogAdd import Ui_dialogAdd
 from src.ui.charaAdd import Ui_CharaEdit
 from src.ui.dialogEdit import Ui_DialogEditNew
-from src.ui.picAdd import Ui_picAdd
+from src.ui.editPicList import Ui_picEdit
 from src.ui.winSettings import Ui_winSettings
+from src.ui.videoAdd import Ui_VideoAdd
 from dialogMsg import dialogMsg
 
 class DialogAddWindow(QMainWindow, Ui_dialogAdd): #台词编辑窗口
     def __init__(self, parent=None):
         super(DialogAddWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
     def exitWin(self):
         self.close()
@@ -27,6 +29,7 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
     def __init__(self, parent=None):
         super(CharaEditWindow, self).__init__(parent)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
     def exitWin(self):
         self.close()
@@ -66,14 +69,35 @@ class DialogEdit(QMainWindow, Ui_DialogEditNew):
     def __init__(self, parent=None):
         super(DialogEdit, self).__init__(parent)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
     def exitWin(self):
         self.close()
 
-class PicAdd(QMainWindow, Ui_picAdd):
-    def __init__(self, parent=None):
-        super(PicAdd, self).__init__(parent)
+class PicEdit(QMainWindow, Ui_picEdit):
+    def __init__(self, path: str, parent=None):
+        super(PicEdit, self).__init__(parent)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
+
+        self.readFiles(path)
+
+    def readFiles(self, path: str):
+        """
+        在treeView中显示images文件夹结构\n
+        :param path: 工作区路径
+        :return: None
+        """
+        #TODO 读取images.rpy中文件路径
+        # 显示至tableView当中
+        self.model = QStandardItemModel(0, 2)
+        self.model.setHorizontalHeaderLabels(['文件名', '归类'])
+        self.tableView.setModel(self.model)
+        self.tableview.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 所有列自动拉伸，充满界面
+        self.tableview.setSelectionMode(QAbstractItemView.SingleSelection)  # 设置只能选中整行
+        self.tableview.setSelectionBehavior(QAbstractItemView.SelectRows)  # 设置只能选中一行
+        self.tableview.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+
 
     def exitWin(self):
         self.close()
@@ -88,6 +112,14 @@ class PicAdd(QMainWindow, Ui_picAdd):
             else:
                 self.picPathEdit.setText(path)
 
+    def deletePic(self):
+        index = self.tableview.currentIndex()  # 取得当前选中行的index
+        self.model.removeRow(index.row())  # 通过index的row()操作得到行数进行删除
+        #TODO 后续文件操作(删除本地文件与rpy文件中对应代码)
+
+    def addPic(self):
+        pass
+
     def showPic(self): #显示图片
         try:
             pixmap = QPixmap(self.picPathEdit.text())
@@ -97,10 +129,27 @@ class PicAdd(QMainWindow, Ui_picAdd):
         self.labelPic.setPixmap(pixmap)
         self.labelPic.setScaledContents(True)
 
+class VideoAdd(QMainWindow, Ui_VideoAdd):
+    def __init__(self, parent=None):
+        super(VideoAdd, self).__init__(parent)
+        self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
+
+    def chooseFile(self):
+        fp = QFileDialog.getOpenFileUrl(self, "打开视频", QUrl("./"), "图像文件(*.ogv)")
+        if (not fp[0].isEmpty()):  # 防止用户直接关闭窗口
+            path = fp[0].path().lstrip('/')  # 工作区文件夹路径,类型为str
+            #TODO 因为检测视频是否损坏需要OpenCv2模块,所以暂不处理
+            self.chooseVideo.setText(path)
+
+    def exitWin(self):
+        self.close()
+
 class WinSetting(QMainWindow, Ui_winSettings):
     def __init__(self, parent=None):
         super(WinSetting, self).__init__(parent)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
     def exitWin(self):
         self.close()

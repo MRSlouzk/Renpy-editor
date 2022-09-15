@@ -9,7 +9,7 @@ import sys, os, shutil
 
 from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicAdd, WinSetting
+from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicEdit, WinSetting, VideoAdd
 from rpyFileOperation import RpyFileOperation
 
 from settings import Settings
@@ -18,6 +18,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
         self.show()
         self.mainFunc()
 
@@ -45,6 +46,8 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                                                          "如果没有,请尝试重新创建工程!")
                 self.path = ''
             else:
+                #TODO rpy文件读入缓存
+                # 进度条对话框
                 self.fileOperate = RpyFileOperation(self.path) #存放用户工作区路径
 
     def showSettingWindow(self): #设置界面
@@ -56,6 +59,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         self.windowSet.btnSettingExit.clicked.connect(self.windowSet.exitWin)
 
     def settingSave(self): #确认保存
+        #TODO 缓存文件写入rpy
         pass
 
     def showNewWindow(self): #跳转窗口选项
@@ -92,19 +96,38 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window3.btnCancel.clicked.connect(self.window3.exitWin)
             # self.window3.btnDelete.clicked.connect() #TODO 删除台词
             # self.window3.btnDefine.clicked.connect() #TODO 确认键
-        elif(choice=="添加图片"):
-            self.window4 = PicAdd()
-            self.window4.show()
+        elif(choice=="编辑图片列表"):
+            try:
+                if(self.path!=''):
+                    self.window4 = PicEdit(self.path + "/images")
+                    self.window4.show()
+                else:
+                    dialogMsg.warnMsg(self, "警告", "未正确选择工作区路径!")
+                    return
+            except AttributeError:
+                dialogMsg.warnMsg(self, "警告", "未选择工作区路径!")
+                return
 
             self.window4.btnOpenFileMana.clicked.connect(self.window4.chooseFile)
+            # self.tableView.selectionChanged.connect(self.window4)
+            self.window4.btnDelete.clicked.connect(self.window4.deletePic)
+            self.window4.btnAdd.clicked.connect()
 
             self.window4.btnReload.clicked.connect(self.window4.showPic)
             self.window4.btnDefine.clicked.connect(self.definePic)
             self.window4.btnCancel.clicked.connect(self.window4.exitWin)
+        elif(choice=="添加视频"):
+            self.window5 = VideoAdd()
+            self.window5.show()
+
+            self.window5.btnOpenFileMana.clicked.connect(self.window5.chooseFile)
+
+            # self.window5.btnDefine.clicked.connect()
+            self.window5.btnCancel.clicked.connect(self.window5.exitWin)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
 
-    def definePic(self): #确认键
+    def definePic(self): #图片添加确认键
         try:
             work_path = self.path
         except AttributeError:
@@ -124,9 +147,38 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 shutil.copy(path, work_path+"/images/"+name)
                 #TODO 脚本文件更改(images.rpy+script.rpy)
                 self.window4.exitWin()
-            except FileExistsError:
-                dialogMsg.warnMsg(self, "警告", "文件已存在!")
+            # 无法使用
+            # except FileExistsError:
+            #     dialogMsg.warnMsg(self, "警告", "文件已存在!")
+            #     return
+            except Exception as e:
+                print(e)
                 return
+
+    def defineVideo(self): #视频添加确认键
+        try:
+            work_path = self.path
+        except AttributeError:
+            dialogMsg.warnMsg(self, "警告", "未设置工作区路径!")
+            return
+        if(not os.path.isdir(work_path)):
+            dialogMsg.warnMsg(self, "警告", "路径无效!")
+            return
+        path = self.window5.chooseVideo.text()
+        if(not os.path.isfile(path)):
+            dialogMsg.warnMsg(self, "警告", "文件不存在!")
+        else:
+            try:
+                name = os.path.split(path)[1]
+                if not os.path.exists(work_path+"/audio"):
+                    os.makedirs(work_path+"/audio")
+                shutil.copy(path, work_path+"/audio/"+name)
+                #TODO 脚本文件更改(script.rpy)
+                self.window5.exitWin()
+            # 无法使用
+            # except FileExistsError:
+            #     dialogMsg.warnMsg(self, "警告", "文件已存在!")
+            #     return
             except Exception as e:
                 print(e)
                 return

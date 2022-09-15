@@ -38,7 +38,7 @@
 
 添加音频流
 
-- [ ] 选择视频路径并插入其中(格式必须为ogv)
+- [x] 选择视频路径并插入其中(格式必须为ogv)
 
 ......
 
@@ -69,6 +69,8 @@
 *路径：选择图像当前所在路径*
 
 选择保存路径，带层级结构，如images/backgroud/......
+
+立绘在images/chara下，普通图片在images/img下，之后再分级
 
 #### 编辑图片(Undo)
 
@@ -104,3 +106,7 @@
 - [ ] 默认变换(config.say_attribute_transition=dissolve)
 - [ ] 打包方式
 - [ ] ......
+
+#### Python语句
+
+输入python语句
