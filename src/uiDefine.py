@@ -1,6 +1,8 @@
 """
     UI定义文件
 """
+import os.path
+
 from PyQt6.QtWidgets import QMainWindow, QFileDialog, QHeaderView, QAbstractItemView, QTableView
 from PyQt6.QtCore import QUrl
 from PyQt6.QtGui import QPixmap, QStandardItemModel, QStandardItem
@@ -90,14 +92,25 @@ class PicEdit(QMainWindow, Ui_picEdit):
         """
         #TODO 读取images.rpy中文件路径
         # 显示至tableView当中
+        self.path = path
+        img_lst = [["imgName1","imgUrl1"],["imgName2","imgUrl2"]]
         self.model = QStandardItemModel(0, 2)
         self.model.setHorizontalHeaderLabels(['文件名', '归类'])
         self.tableView.setModel(self.model)
-        self.tableview.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)  # 所有列自动拉伸，充满界面
-        self.tableview.setSelectionMode(QAbstractItemView.SingleSelection)  # 设置只能选中整行
-        self.tableview.setSelectionBehavior(QAbstractItemView.SelectRows)  # 设置只能选中一行
-        self.tableview.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tableView.horizontalHeader().setStretchLastSection(True) # 列填满窗口
+        # self.tableview.horizontalHeader.setSectionResizeMode(QHeaderView.Stretch)  # 所有列自动拉伸，充满界面
+        self.tableView.setSelectionMode(QAbstractItemView.selectionMode(self.tableView).SingleSelection)
+        # self.tableview.setSelectionMode(QAbstractItemView.SingleSelection)  # 设置只能选中整行
+        self.tableView.setSelectionBehavior(QAbstractItemView.selectionBehavior(self.tableView).SelectRows)
+        # self.tableview.setSelectionBehavior(QAbstractItemView.SelectRows)  # 设置只能选中一行
+        self.tableView.setEditTriggers(QTableView.editTriggers(self.tableView).NoEditTriggers)  # 不可编辑
 
+        for i in img_lst:
+            self.model.appendRow([QStandardItem(i[0]),QStandardItem(i[1])])
+        # self.model.appendRow(
+        #     [QStandardItem('row %s,column %s' % (11, 11)),
+        #      QStandardItem('row %s,column %s' % (11, 11))]
+        # )
 
     def exitWin(self):
         self.close()
@@ -105,15 +118,22 @@ class PicEdit(QMainWindow, Ui_picEdit):
     def chooseFile(self): #选择图片文件
         fp = QFileDialog.getOpenFileUrl(self, "打开图片", QUrl("./"), "图像文件(*.jpg *.jpeg *.png *.webp)")
         if (not fp[0].isEmpty()):  # 防止用户直接关闭窗口
-            path = fp[0].path().lstrip('/')  # 工作区文件夹路径,类型为str
+            path = fp[0].path().lstrip('/')  # 文件路径,类型为str
             if(imghdr.what(path) is None):
                 dialogMsg.warnMsg(self, "警告", "图片已损坏!")
                 return
             else:
                 self.picPathEdit.setText(path)
 
+    def chooseFilePath(self): #选择图片存储路径
+        fp_name = QFileDialog.getExistingDirectoryUrl(self, "选择工作区文件夹", QUrl("./"))
+        if (not fp_name.isEmpty()):  # 防止用户直接关闭窗口
+            path = fp_name.path().lstrip('/')  # 工作区文件夹路径,类型为str
+            path.removeprefix(self.path) #TODO 9.16进度
+        return
+
     def deletePic(self):
-        index = self.tableview.currentIndex()  # 取得当前选中行的index
+        index = self.tableView.currentIndex()  # 取得当前选中行的index
         self.model.removeRow(index.row())  # 通过index的row()操作得到行数进行删除
         #TODO 后续文件操作(删除本地文件与rpy文件中对应代码)
 

@@ -104,14 +104,14 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 else:
                     dialogMsg.warnMsg(self, "警告", "未正确选择工作区路径!")
                     return
-            except AttributeError:
+            except AttributeError as e:
                 dialogMsg.warnMsg(self, "警告", "未选择工作区路径!")
                 return
 
             self.window4.btnOpenFileMana.clicked.connect(self.window4.chooseFile)
             # self.tableView.selectionChanged.connect(self.window4)
             self.window4.btnDelete.clicked.connect(self.window4.deletePic)
-            self.window4.btnAdd.clicked.connect()
+            # self.window4.btnAdd.clicked.connect()
 
             self.window4.btnReload.clicked.connect(self.window4.showPic)
             self.window4.btnDefine.clicked.connect(self.definePic)
