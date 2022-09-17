@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>704</width>
+    <width>833</width>
     <height>352</height>
    </rect>
   </property>
@@ -68,10 +68,13 @@
     </rect>
    </property>
    <property name="text">
-    <string>取消</string>
+    <string>关闭</string>
    </property>
   </widget>
   <widget class="QPushButton" name="btnDefine">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>260</x>
@@ -160,7 +163,7 @@
     <rect>
      <x>440</x>
      <y>20</y>
-     <width>251</width>
+     <width>381</width>
      <height>321</height>
     </rect>
    </property>

@@ -21,6 +21,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.width(), self.height())
         self.show()
         self.mainFunc()
+        self.path = "D:/renpy-7.4.11-sdk/project/TestforEditor/game"
 
     def mainFunc(self):
         """
@@ -109,12 +110,10 @@ class WindowApp(QMainWindow, Ui_MainWindow):
                 return
 
             self.window4.btnOpenFileMana.clicked.connect(self.window4.chooseFile)
-            # self.tableView.selectionChanged.connect(self.window4)
             self.window4.btnDelete.clicked.connect(self.window4.deletePic)
-            # self.window4.btnAdd.clicked.connect()
+            self.window4.btnAdd.clicked.connect(self.window4.addPic)
 
             self.window4.btnReload.clicked.connect(self.window4.showPic)
-            self.window4.btnDefine.clicked.connect(self.definePic)
             self.window4.btnCancel.clicked.connect(self.window4.exitWin)
         elif(choice=="添加视频"):
             self.window5 = VideoAdd()
@@ -127,33 +126,33 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
 
-    def definePic(self): #图片添加确认键
-        try:
-            work_path = self.path
-        except AttributeError:
-            dialogMsg.warnMsg(self, "警告", "未设置工作区路径!")
-            return
-        if(not os.path.isdir(work_path)):
-            dialogMsg.warnMsg(self, "警告", "路径无效!")
-            return
-        path = self.window4.picPathEdit.text()
-        if(not os.path.isfile(path)):
-            dialogMsg.warnMsg(self, "警告", "文件不存在!")
-        else:
-            try:
-                name = os.path.split(path)[1]
-                if not os.path.exists(work_path+"/images"):
-                    os.makedirs(work_path+"/images")
-                shutil.copy(path, work_path+"/images/"+name)
-                #TODO 脚本文件更改(images.rpy+script.rpy)
-                self.window4.exitWin()
-            # 无法使用
-            # except FileExistsError:
-            #     dialogMsg.warnMsg(self, "警告", "文件已存在!")
-            #     return
-            except Exception as e:
-                print(e)
-                return
+    # def definePic(self): #图片添加确认键
+    #     try:
+    #         work_path = self.path
+    #     except AttributeError:
+    #         dialogMsg.warnMsg(self, "警告", "未设置工作区路径!")
+    #         return
+    #     if(not os.path.isdir(work_path)):
+    #         dialogMsg.warnMsg(self, "警告", "路径无效!")
+    #         return
+    #     path = self.window4.picPathEdit.text()
+    #     if(not os.path.isfile(path)):
+    #         dialogMsg.warnMsg(self, "警告", "文件不存在!")
+    #     else:
+    #         try:
+    #             name = os.path.split(path)[1]
+    #             if not os.path.exists(work_path+"/images"):
+    #                 os.makedirs(work_path+"/images")
+    #             shutil.copy(path, work_path+"/images/"+name)
+    #             #TODO 脚本文件更改(images.rpy+script.rpy)
+    #             self.window4.exitWin()
+    #         # 无法使用
+    #         # except FileExistsError:
+    #         #     dialogMsg.warnMsg(self, "警告", "文件已存在!")
+    #         #     return
+    #         except Exception as e:
+    #             print(e)
+    #             return
 
     def defineVideo(self): #视频添加确认键
         try:
