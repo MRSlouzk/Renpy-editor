@@ -178,7 +178,7 @@ class PicEdit(QMainWindow, Ui_picEdit):
         else:
             return -1
 
-    def addPic(self):
+    def addPic(self): #添加图片
         current_path = self.picPathEdit.text()
         if(current_path == ""):
             dialogMsg.warnMsg(self, "警告", "未选择文件!")

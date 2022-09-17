@@ -21,7 +21,7 @@ class WindowApp(QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.width(), self.height())
         self.show()
         self.mainFunc()
-        self.path = "D:/renpy-7.4.11-sdk/project/TestforEditor/game"
+        # self.path = "D:/renpy-7.4.11-sdk/project/TestforEditor/game"
 
     def mainFunc(self):
         """
