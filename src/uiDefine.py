@@ -4,8 +4,8 @@
 import os.path
 import time
 
-from PyQt6.QtWidgets import QMainWindow, QFileDialog, QHeaderView, QAbstractItemView, QTableView
-from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QMainWindow, QFileDialog, QHeaderView, QAbstractItemView, QTableView, QListView
+from PyQt6.QtCore import QUrl, QStringListModel
 from PyQt6.QtGui import QPixmap, QStandardItemModel, QStandardItem
 
 from typing import List
@@ -211,10 +211,12 @@ class PicEdit(QMainWindow, Ui_picEdit):
         self.labelPic.setScaledContents(True)
 
 class VideoAdd(QMainWindow, Ui_VideoAdd):
-    def __init__(self, parent=None):
+    def __init__(self, path: str, parent=None):
         super(VideoAdd, self).__init__(parent)
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
+        self.path = path #工作区路径
+        self.__readVideos()
 
     def chooseFile(self):
         fp = QFileDialog.getOpenFileUrl(self, "打开视频", QUrl("./"), "图像文件(*.ogv)")
@@ -222,6 +224,50 @@ class VideoAdd(QMainWindow, Ui_VideoAdd):
             path = fp[0].path().lstrip('/')  # 工作区文件夹路径,类型为str
             #TODO 因为检测视频是否损坏需要OpenCv2模块,所以暂不处理
             self.chooseVideo.setText(path)
+
+    def __readVideos(self): #读取目录下所有视频
+        self.model = QStringListModel()
+        file_lst = os.listdir(self.path + "/audio")
+        self.model.setStringList(file_lst)
+        self.videoList.setModel(self.model)
+        self.videoList.setSelectionBehavior(QAbstractItemView.selectionBehavior(self.videoList).SelectRows)
+        self.videoList.setEditTriggers(QListView.editTriggers(self.videoList).NoEditTriggers)
+
+    def addVideo(self): #添加视频至列表当中
+        work_path = self.path
+        if (not os.path.isdir(work_path)):
+            dialogMsg.warnMsg(self, "警告", "路径无效!")
+            return
+        path = self.chooseVideo.text()
+        if (not os.path.isfile(path)):
+            dialogMsg.warnMsg(self, "警告", "文件不存在!")
+        else:
+            try:
+                name = os.path.split(path)[1]
+                if not os.path.exists(work_path + "/audio"):
+                    os.makedirs(work_path + "/audio")
+                shutil.copy(path, work_path + "/audio/" + name)
+                # TODO 脚本文件更改(script.rpy)
+                self.__readVideos()
+            except FileExistsError:
+                dialogMsg.warnMsg(self, "警告", "已存在该文件")
+            except Exception as e:
+                print(e)
+                return
+
+    def delVideo(self): #删除列表中视频及其对应文件、
+        index = self.videoList.currentIndex()
+        name = self.model.stringList()[index.row()]
+        video_path = self.path + "/audio/" + name
+        try:
+            os.remove(video_path)
+        except FileNotFoundError:
+            dialogMsg.warnMsg(self, "警告", "不存在该文件")
+            return
+        new_lst = self.model.stringList()
+        new_lst.remove(name)
+        self.model.setStringList(new_lst)
+        #TODO rpy脚本代码删除操作
 
     def exitWin(self):
         self.close()

@@ -99,7 +99,7 @@ class Ui_MainWindow(object):
         self.comboBoxChoiceMode.setItemText(2, _translate("MainWindow", "台词编辑"))
         self.comboBoxChoiceMode.setItemText(3, _translate("MainWindow", "编辑图片列表"))
         self.comboBoxChoiceMode.setItemText(4, _translate("MainWindow", "添加立绘"))
-        self.comboBoxChoiceMode.setItemText(5, _translate("MainWindow", "添加视频"))
+        self.comboBoxChoiceMode.setItemText(5, _translate("MainWindow", "编辑视频列表"))
         self.comboBoxChoiceMode.setItemText(6, _translate("MainWindow", "添加选择界面"))
         self.comboBoxChoiceMode.setItemText(7, _translate("MainWindow", "创建分支"))
         self.comboBoxChoiceMode.setItemText(8, _translate("MainWindow", "添加动画"))
