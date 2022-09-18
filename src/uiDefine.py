@@ -17,6 +17,7 @@ from src.ui.dialogEdit import Ui_DialogEditNew
 from src.ui.editPicList import Ui_picEdit
 from src.ui.winSettings import Ui_winSettings
 from src.ui.videoAdd import Ui_VideoAdd
+from src.ui.editAnimation import Ui_editAnimation
 from dialogMsg import dialogMsg
 
 class DialogAddWindow(QMainWindow, Ui_dialogAdd): #台词编辑窗口
@@ -134,10 +135,6 @@ class PicEdit(QMainWindow, Ui_picEdit):
 
         for i in self.img_lst:
             self.model.appendRow([QStandardItem(i[0]),QStandardItem(i[1])])
-        # self.model.appendRow(
-        #     [QStandardItem('row %s,column %s' % (11, 11)),
-        #      QStandardItem('row %s,column %s' % (11, 11))]
-        # )
 
     def exitWin(self):
         self.close()
@@ -152,7 +149,7 @@ class PicEdit(QMainWindow, Ui_picEdit):
             else:
                 self.picPathEdit.setText(path)
 
-    def __getPicPath(self, row: int) -> str:
+    def __getPicPath(self, row: int) -> str: #获取图片文件绝对路径
         fileName = self.model.item(row, 0).text()  # 文件名
         nowPath = self.model.item(row, 1).text()  # 文件路径
         abspath = self.path + "/others/" + nowPath + "/" + fileName
@@ -160,6 +157,9 @@ class PicEdit(QMainWindow, Ui_picEdit):
 
     def deletePic(self): #删除图片
         index = self.tableView.currentIndex()  # 取得当前选中行的index
+        choice = dialogMsg.queryMsg(self, "请确认", f"是否要删除{self.model.item(index.row(), 0).text()}?")
+        if not choice:
+            return
         abspath = self.__getPicPath(index.row())
         try:
             os.remove(abspath)
@@ -255,9 +255,12 @@ class VideoAdd(QMainWindow, Ui_VideoAdd):
                 print(e)
                 return
 
-    def delVideo(self): #删除列表中视频及其对应文件、
+    def delVideo(self): #删除列表中视频及其对应文件
         index = self.videoList.currentIndex()
         name = self.model.stringList()[index.row()]
+        choice = dialogMsg.queryMsg(self, "请确认", f"是否要删除{name}?")
+        if not choice:
+            return
         video_path = self.path + "/audio/" + name
         try:
             os.remove(video_path)
@@ -268,6 +271,15 @@ class VideoAdd(QMainWindow, Ui_VideoAdd):
         new_lst.remove(name)
         self.model.setStringList(new_lst)
         #TODO rpy脚本代码删除操作
+
+    def exitWin(self):
+        self.close()
+
+class EditAnimation(QMainWindow, Ui_editAnimation):
+    def __init__(self, parent=None):
+        super(EditAnimation, self).__init__(parent)
+        self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
 
     def exitWin(self):
         self.close()

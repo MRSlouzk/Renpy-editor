@@ -32,7 +32,7 @@
      <rect>
       <x>90</x>
       <y>160</y>
-      <width>91</width>
+      <width>111</width>
       <height>21</height>
      </rect>
     </property>
@@ -67,7 +67,7 @@
     </item>
     <item>
      <property name="text">
-      <string>添加立绘</string>
+      <string>编辑立绘</string>
      </property>
     </item>
     <item>
@@ -95,13 +95,18 @@
       <string>游戏设置</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>测试用</string>
+     </property>
+    </item>
    </widget>
    <widget class="QPushButton" name="pushButtonEnter">
     <property name="geometry">
      <rect>
       <x>40</x>
       <y>220</y>
-      <width>131</width>
+      <width>141</width>
       <height>24</height>
      </rect>
     </property>

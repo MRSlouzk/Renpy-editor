@@ -9,7 +9,7 @@ import sys, os, shutil
 
 from src.ui.mainWindow import Ui_MainWindow
 from dialogMsg import dialogMsg
-from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicEdit, WinSetting, VideoAdd
+from uiDefine import DialogAddWindow, CharaEditWindow, DialogEdit, PicEdit, WinSetting, VideoAdd, EditAnimation
 from rpyFileOperation import RpyFileOperation
 
 from settings import Settings
@@ -125,6 +125,15 @@ class WindowApp(QMainWindow, Ui_MainWindow):
             self.window5.btnDel.clicked.connect(self.window5.delVideo)
 
             self.window5.btnCancel.clicked.connect(self.window5.exitWin)
+
+        elif(choice=="编辑立绘"):
+            self.window6 = EditAnimation()
+            self.window6.show()
+
+            #TODO 立绘界面功能
+        elif(choice=="测试用"):
+            anw = dialogMsg.queryMsg(self, "问询对话", "内容")
+            print(anw)
         else:
             dialogMsg.infoMsg(self, "功能未完善", f"你选择的是{self.comboBoxChoiceMode.currentText()}")
 
