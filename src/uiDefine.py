@@ -116,7 +116,7 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
             choice = dialogMsg.queryMsg(self, "警告", f"是否确认要删除{selectedRow}?")
             if not choice:
                 return
-            #TODO 删除文件内容对接
+            #TODO 删除rpy文件内容对接
             self.listWidget.takeItem(self.listWidget.currentRow())
         except AttributeError as e:
             dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
@@ -177,8 +177,6 @@ class PicEdit(QMainWindow, Ui_picEdit):
         """
         在treeView中显示images文件夹结构
         """
-        #TODO 读取images.rpy中文件路径
-        # 显示至tableView当中
         self.img_lst = []
         self.__findFiles(self.path + "/others")
 
@@ -250,7 +248,7 @@ class PicEdit(QMainWindow, Ui_picEdit):
             if(self.chooseFilePath() == -1):
                 return
             if((self.path + "/others") in self.chosen_path): #判断是否为应存放图片的路径
-                shutil.copy(current_path, self.chosen_path) #TODO rpy文件操作以及图片移动
+                shutil.copy(current_path, self.chosen_path) #TODO rpy文件操作
                 dialogMsg.infoMsg(self, "信息", "已成功添加!")
                 self.readFiles()
             else:
@@ -258,7 +256,6 @@ class PicEdit(QMainWindow, Ui_picEdit):
                 return
 
     def showPic(self): #显示图片
-        #TODO 改写,加载表格中选定的内容
         try:
             index = self.tableView.currentIndex()  # 取得当前选中行的index
             pic_path = self.__getPicPath(index.row())
