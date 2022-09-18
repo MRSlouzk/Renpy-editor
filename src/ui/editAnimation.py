@@ -12,6 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_editAnimation(object):
     def setupUi(self, editAnimation):
         editAnimation.setObjectName("editAnimation")
+        editAnimation.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
         editAnimation.resize(600, 520)
         self.labelAni = QtWidgets.QLabel(editAnimation)
         self.labelAni.setGeometry(QtCore.QRect(380, 10, 201, 501))

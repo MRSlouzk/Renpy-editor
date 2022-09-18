@@ -44,10 +44,10 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
         self.charaPrefix.setText("")
 
     def isEmptyInfo(self):
-        charaTag = self.charaTag.text()  # 人物标签(renpy人物变量)
+        chara_Tag = self.charaTag.text()  # 人物标签(renpy人物变量)
         charaName = self.charaName.text()  # 人物显示名
         charaPrefix = self.charaPrefix.text()  # 人物立绘前缀,格式如tohka_
-        if (not charaTag):
+        if (not chara_Tag):
             dialogMsg.warnMsg(self, "错误!", "未设置人物识别名!")
         elif (not charaName):
             dialogMsg.warnMsg(self, "错误!", "未设置人物名!")
@@ -55,6 +55,18 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
             dialogMsg.warnMsg(self, "错误!", "未设置人物立绘前缀!")
         else:
             return True
+
+    def charaInfoUpdate(self): #人物信息读取
+        try:
+            self.selectedRow = self.listWidget.currentItem().text()
+            #TODO 通过显示名读取标签以及人物立绘前缀
+            self.chara_Tag = 'testContent'
+            self.charaPre = 'testContent'
+            lst = [self.chara_Tag, self.selectedRow, self.charaPre]
+            self.setCharaInfo(lst)
+        except AttributeError as e:
+            dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
+            return
 
     def setCharaInfo(self, lst: List[str]):
         """
@@ -69,11 +81,61 @@ class CharaEditWindow(QMainWindow, Ui_CharaEdit):
         else:
             raise Exception("参数数量错误")
 
+    def changeChar(self): #修改人物
+        if (self.isEmptyInfo()):
+            charaTag = self.charaTag.text()  # 人物标签(renpy人物变量)
+            charaName = self.charaName.text()  # 人物显示名
+            try:
+                if(charaName != self.window2.listWidget.currentItem().text()):
+                    raise Exception("参数指向错误!")
+            except AttributeError as e:
+                dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
+                return
+            charaPrefix = self.charaPrefix.text()  # 人物立绘前缀,格式如tohka_
+            #TODO 人物标签,显示名,立绘前缀冲突判定
+            #TODO 修改标签以及人物立绘前缀(文件操作)
+            dialogMsg.infoMsg(self, "提示", "修改成功!")
+        return
+
+
+    def addChar(self): #写入人物
+        if(self.isEmptyInfo()):
+            charaTag = self.charaTag.text()        #人物标签(renpy人物变量)
+            charaName = self.charaName.text()      #人物显示名
+            charaPrefix = self.charaPrefix.text()  #人物立绘前缀,格式如tohka_
+            charaPrefix += '_'
+            #TODO 人物标签,显示名,立绘前缀冲突判定(2)
+            #TODO 人物添加文件读写(此处为写入文件)
+            self.listWidget.addItem(charaName)
+            self.clearInput()
+        return
+
+    def delChar(self):
+        try:
+            selectedRow = self.listWidget.currentItem().text()
+            choice = dialogMsg.queryMsg(self, "警告", f"是否确认要删除{selectedRow}?")
+            if not choice:
+                return
+            #TODO 删除文件内容对接
+            self.listWidget.takeItem(self.listWidget.currentRow())
+        except AttributeError as e:
+            dialogMsg.warnMsg(self, "警告!", "未选择任何人物!")
+        return
+
+
 class DialogEdit(QMainWindow, Ui_DialogEditNew):
     def __init__(self, parent=None):
         super(DialogEdit, self).__init__(parent)
         self.setupUi(self)
         self.setFixedSize(self.width(), self.height())
+
+    def writeDialog(self): #写入台词
+        char = self.comboBoxCharacter.currentText() #人物显示名
+        dial = self.DialogInput.toPlainText()       #台词内容
+        if(dial == ''):
+            dialogMsg.warnMsg(self, "错误!", "台词为空!")
+            return
+        #TODO 此处具体功能待对接
 
     def exitWin(self):
         self.close()
